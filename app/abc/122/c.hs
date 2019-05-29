@@ -1,16 +1,13 @@
 import Control.Monad
+import Data.Array.Unboxed
 
 main :: IO ()
 main = do
-  [_,q] <- map read . words <$> getLine
+  [n,q] <- map read . words <$> getLine
   s <- getLine
   lrs <- replicateM q $ (\[x,y] -> (x,y)) . map read . words <$> getLine :: IO [(Int,Int)]
-  let acs = neighbour s 0
-  print acs
-  forM_ lrs $ \(l,r) -> case l of
-    1 -> print $ acs!!(r-2)
-    2 -> print $ acs!!(r-2) - acs!!0
-    _ -> print $ acs!!(r-2) - acs!!(l-1)
+  let acs = listArray (0,n-1) $ 0 : neighbour s 0 :: UArray Int Int
+  forM_ lrs $ \(l,r) -> print $ acs!(r-1) - acs!(l-1)
 
 neighbour :: String -> Int -> [Int]
 neighbour [] _ = []
@@ -24,11 +21,7 @@ neighbour (x:y:xs) acc
 ACACTACG
 10100100
 
-1122233_
-
-
-
-
+01122233
 
 3 7 -> 2
 2 3 -> 0
