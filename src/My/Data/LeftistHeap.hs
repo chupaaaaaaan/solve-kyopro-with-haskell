@@ -13,12 +13,10 @@ import Data.Proxy
 data LeftistHeap a b = E | T Int b (LeftistHeap a b) (LeftistHeap a b) deriving Show
 
 fromListMax :: Ord b => [b] -> LeftistHeap Greater b
-fromListMax [] = E
-fromListMax (x:xs) = insert x $ fromListMax xs
+fromListMax = foldr insert E
 
 fromListMin :: Ord b => [b] -> LeftistHeap Lesser b
-fromListMin [] = E
-fromListMin (x:xs) = insert x $ fromListMin xs
+fromListMin = foldr insert E
 
 
 -- fromListMin [3,2,1,6,5,4,10,9]
@@ -55,11 +53,11 @@ instance Comparable a => Heap (LeftistHeap a) where
   isEmpty E = True
   isEmpty _ = False
 
-  insert x h = merge (T 1 x E E) h
+  insert x = merge (T 1 x E E)
 
   merge h E = h
   merge E h = h
-  merge (h1@(T _ x a1 b1)) (h2@(T _ y a2 b2))
+  merge h1@(T _ x a1 b1) h2@(T _ y a2 b2)
     = if comp (Proxy :: Proxy a) x y
       then makeT x a1 $ merge b1 h2
       else makeT y a2 $ merge h1 b2
