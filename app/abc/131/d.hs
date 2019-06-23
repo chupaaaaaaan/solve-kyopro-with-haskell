@@ -7,17 +7,9 @@ main :: IO ()
 main = do
   n <- readLn :: IO Int
   abz <- replicateM n $ (\[x,y] -> (x,y)) . map (fst . fromJust . BS.readInt) . BS.words <$> BS.getLine
-  let abz' = sortBy compTuple abz
+  let abz' = sortBy (\(x,y) (z,u) -> compare u y <> compare z x) abz
 
   putStrLn $ solve abz'
-
-
-compTuple :: (Ord a, Ord b) => (a,b) -> (a,b) -> Ordering
-compTuple (x,y) (z,u) = case compare u y of
-                          LT -> LT
-                          GT -> GT
-                          EQ -> compare z x
-
 
 solve :: [(Int,Int)] -> String
 solve [] = "Yes"
