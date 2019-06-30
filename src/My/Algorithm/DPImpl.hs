@@ -1,4 +1,4 @@
-module DPImpl where
+module My.Algorithm.DPImpl where
 
 import Control.Monad
 import Data.Array.ST

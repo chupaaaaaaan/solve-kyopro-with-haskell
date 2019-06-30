@@ -15,6 +15,7 @@ dependencies:
 - transformers
 - array
 - bytestring
+- vector
 
 library:
   source-dirs: src
