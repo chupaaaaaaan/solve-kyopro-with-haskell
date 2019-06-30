@@ -1,9 +1,11 @@
-module PascalTriangle where
+module DPImpl where
 
 import Control.Monad
 import Data.Array.ST
 import Data.Array.Unboxed
 
+
+-- 貰うDPの例（パスカルの三角形）
 pascal :: Int -> Int -> UArray (Int,Int) Int
 pascal n0 k0 = runSTUArray $ do
   dptbl <- newArray ((0,0),(n0,k0)) 0
