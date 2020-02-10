@@ -2,3 +2,4 @@
 solve-kyopro-with-haskell.cabal
 *~
 stack.yaml.lock
+dist-newstyle/

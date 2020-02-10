@@ -16,6 +16,7 @@ dependencies:
 - array
 - bytestring
 - vector
+- containers
 
 library:
   source-dirs: src
